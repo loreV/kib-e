@@ -1,9 +1,9 @@
+package app;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import configuration.ConfigurationManager;
 import configuration.module.ConfiguratorModule;
-
-import java.util.logging.Logger;
 
 public class Main {
 

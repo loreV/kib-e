@@ -15,11 +15,9 @@ public class ConfigurationManager {
 
     private final Logger LOG = getLogger(ConfigurationManager.class.getName());
 
-    private static final String PORT_PROPERTY = "port";
-    private static final String STARTUP_IMPORT = "startupImport";
-
-    private boolean startupImport;
     private final DataSource dataSource;
+
+    private static final String PORT_PROPERTY = "port";
 
 
     /**
@@ -29,11 +27,9 @@ public class ConfigurationManager {
 
     @Inject
     public ConfigurationManager(final @Named(PORT_PROPERTY) String port,
-                                final @Named(STARTUP_IMPORT) String startupImport,
                                 final DataPointController dataPointController,
                                 final DataSource dataSource) {
         this.dataPointDAO = dataPointController;
-        this.startupImport = Boolean.valueOf(startupImport);
         this.dataSource = dataSource;
         port(Integer.valueOf(port));
     }
