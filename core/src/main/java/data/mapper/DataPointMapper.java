@@ -13,10 +13,10 @@ public class DataPointMapper implements Mapper<DataPoint> {
     public DataPoint mapToObject(Document doc) {
         return new DataPoint.DataPointBuilder()
                 .setDateTime(doc.getDate(DATETIME_FIELD))
-                .setTemperature(doc.getLong(TEMPERATURE_FIELD))
-                .setHumidity(doc.getLong(HUMIDITY_FIELD))
-                .setLight(doc.getLong(LIGHT_FIELD))
-                .setSoil(doc.getLong(SOIL_MOISTURE_FIELD))
+                .setTemperature(doc.getDouble(TEMPERATURE_FIELD))
+                .setHumidity(doc.getDouble(HUMIDITY_FIELD))
+                .setLight(doc.getDouble(LIGHT_FIELD))
+                .setSoil(doc.getDouble(SOIL_MOISTURE_FIELD))
                 .setPUID(doc.getString(PU_ID_FIELD))
                 .build();
     }

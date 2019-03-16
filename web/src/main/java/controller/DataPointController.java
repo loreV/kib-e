@@ -30,11 +30,11 @@ public class DataPointController {
     private final Logger LOG = getLogger(DataPointController.class.getName());
 
     private final Gson gsonBuilder;
-    private static final String FROM_PARAM = ":from";
-    private static final String TO_PARAM = ":from";
+    private static final String FROM_PARAM = "from";
+    private static final String TO_PARAM = "to";
     private static final String PREFIX = "/datapoint";
     private static final String ACCEPT_APPLICATION_JSON = "application/json";
-    private static final String UTC_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private static final String UTC_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     private final DataPointDAO dataPointDAO;
     private final SimpleDateFormat simpleDateFormatter;

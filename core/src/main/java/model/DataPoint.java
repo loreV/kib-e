@@ -18,10 +18,10 @@ public class DataPoint {
 
     private ObjectId _id;
     private Date datetime;
-    private float temperature;
-    private float humidity;
-    private float light;
-    private float soilMoisture;
+    private Double temperature;
+    private Double humidity;
+    private Double light;
+    private Double soilMoisture;
     private String puId;
 
     private DataPoint() {
@@ -35,19 +35,19 @@ public class DataPoint {
         return datetime;
     }
 
-    public float getTemperature() {
+    public Double getTemperature() {
         return temperature;
     }
 
-    public float getHumidity() {
+    public Double getHumidity() {
         return humidity;
     }
 
-    public float getLight() {
+    public Double getLight() {
         return light;
     }
 
-    public float getSoilMoisture() {
+    public Double getSoilMoisture() {
         return soilMoisture;
     }
 
@@ -58,10 +58,10 @@ public class DataPoint {
     public static final class DataPointBuilder {
         private ObjectId _id;
         private Date dateTime;
-        private float temperature;
-        private float humidity;
-        private float light;
-        private float soil;
+        private Double temperature;
+        private Double humidity;
+        private Double light;
+        private Double soil;
         private String puid;
 
         public DataPointBuilder() {
@@ -73,22 +73,22 @@ public class DataPoint {
             return this;
         }
 
-        public DataPointBuilder setTemperature(final float temperature) {
+        public DataPointBuilder setTemperature(final Double temperature) {
             this.temperature = temperature;
             return this;
         }
 
-        public DataPointBuilder setHumidity(final float humidity) {
+        public DataPointBuilder setHumidity(final Double humidity) {
             this.humidity = humidity;
             return this;
         }
 
-        public DataPointBuilder setLight(final float light) {
+        public DataPointBuilder setLight(final Double light) {
             this.light = light;
             return this;
         }
 
-        public DataPointBuilder setSoil(final float soil) {
+        public DataPointBuilder setSoil(final Double soil) {
             this.soil = soil;
             return this;
         }
