@@ -1,11 +1,10 @@
-package org.kibe.intel.module;
+package org.kibe.onboard.configuration.module;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
-import data.DataSource;
-import data.MongoDataSource;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
 
 public class ConfiguratorModule extends AbstractModule {
@@ -14,11 +13,10 @@ public class ConfiguratorModule extends AbstractModule {
         final Properties properties = new Properties();
         final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         try {
-            properties.load(contextClassLoader.getResourceAsStream("core.properties"));
+            properties.load(Objects.requireNonNull(contextClassLoader.getResourceAsStream("onboard.properties")));
             Names.bindProperties(binder(), properties);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
-        bind(DataSource.class).to(MongoDataSource.class);
     }
 }
