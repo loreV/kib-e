@@ -4,7 +4,7 @@ import org.kibe.common.data.DataPoint;
 
 public class LastDataPointRetrieved implements SerialDataPointInCache {
 
-    private static final String CONFIGURATION_ERROR = "The latest datapoint is null. Is the application correctly configured?";
+    private static final String CONFIGURATION_ERROR = "The latest dataPoint is null. Is the application correctly configured?";
     private volatile DataPoint latestDataPoint;
 
     public LastDataPointRetrieved(){}
