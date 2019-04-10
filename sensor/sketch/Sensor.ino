@@ -1,29 +1,51 @@
 #include <dht.h>
+#include <Wire.h>
 
-#define LIGHTSENSORPIN A0 
-#define MOISTURESENSORPIN A1 
-#define RELATIVEHUMIDITY_PIN 7 
+#define SLAVE_ADDRESS 0x04
+
+#define LIGHTSENSORPIN A0
+#define MOISTURESENSORPIN A1
+#define RELATIVEHUMIDITY_PIN 7
 dht DHT; // To read the Relative Moisture Sensor (Display Humidity/Temperature)
 
+// Last captured values
+float readingLight = 0;
+float moisture = 0;
+int chk = 0;
+int temp = 0;
+int humidity = 0;
+
 void setup() {
-  pinMode(LIGHTSENSORPIN,  INPUT);  
-  pinMode(MOISTURESENSORPIN,  INPUT);  
-  pinMode(RELATIVEHUMIDITY_PIN,  INPUT);  
 
   Serial.begin(9600);
+
+  pinMode(LIGHTSENSORPIN,  INPUT);
+  pinMode(MOISTURESENSORPIN,  INPUT);
+  pinMode(RELATIVEHUMIDITY_PIN,  INPUT);
+
+  Wire.begin(SLAVE_ADDRESS);
+  Wire.onReceive(receiveData);
+  Wire.onRequest(publishData);
 }
 
 void loop() {
-  float readingLight = analogRead(LIGHTSENSORPIN);
-  float moisture = analogRead(MOISTURESENSORPIN);
-  int chk = DHT.read11(RELATIVEHUMIDITY_PIN);
-  toJsonFormat(readingLight, moisture, DHT.temperature, DHT.humidity); 
+  // Gather data
+  readingLight = analogRead(LIGHTSENSORPIN);
+  moisture = analogRead(MOISTURESENSORPIN);
+  chk = DHT.read11(RELATIVEHUMIDITY_PIN);
+  temp = DHT.temperature;
+  humidity = DHT.humidity;
+  // Refresh data capturing timeout
   delay(2000);
 }
 
-void toJsonFormat(float lightVal, float moisture, int temperature, int humidity) { 
-  Serial.println("{'light': "+ String(lightVal) + ", " + 
-                  "'moisture': " + String(moisture) + ", " + 
-                  "'temperature': " + String(temperature) + ", " +
-                  "'humidity': " + String(humidity) + " }");
+void publishData() {
+  char bufferChar[32];
+  String message = "m:" + String(int(moisture)) + ",l:" + String(int(readingLight)) + ",h:" + String(humidity) + ",t:" + String(temp) + ";";
+  message.toCharArray(bufferChar, 32);
+  Wire.write(bufferChar);
+}
+
+void receiveData(int byteCount) {
+  // TODO actionable
 }
