@@ -3,7 +3,7 @@ package org.kibe.onboard.configuration;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.apache.logging.log4j.Logger;
-import org.kibe.onboard.configuration.module.CommunicationModule;
+import org.kibe.onboard.configuration.module.BoardToIntelCommModule;
 import org.kibe.onboard.controller.CommunicationController;
 
 import java.io.IOException;
@@ -19,15 +19,15 @@ public class ConfigurationManager {
 
     private static final String PORT_PROPERTY = "web-port";
 
-    private final CommunicationModule communicationModule;
+    private final BoardToIntelCommModule boardToIntelCommModule;
     private final CommunicationController communicationController;
 
     @Inject
     public ConfigurationManager(
-            final CommunicationModule communicationModule,
+            final BoardToIntelCommModule boardToIntelCommModule,
             final CommunicationController communicationController,
             final @Named(PORT_PROPERTY) String port) {
-        this.communicationModule = communicationModule;
+        this.boardToIntelCommModule = boardToIntelCommModule;
         this.communicationController = communicationController;
         port(Integer.parseInt(port));
     }
@@ -39,7 +39,7 @@ public class ConfigurationManager {
 
     private void initializeCommunication(){
         try {
-            communicationModule.init();
+            boardToIntelCommModule.init();
         } catch (IOException | TimeoutException e) {
             LOG.error(format("Error while initializing queue connection. Error: %s", e.getMessage()));
         }
