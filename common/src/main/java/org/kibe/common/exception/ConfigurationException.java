@@ -1,4 +1,4 @@
-package exception;
+package org.kibe.common.exception;
 
 import static java.lang.String.format;
 
