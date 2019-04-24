@@ -39,6 +39,12 @@ public class DataCommRunner implements Runnable, DataEntrySubject {
             } catch (IOException e) {
                 LOG.error("Error when reading data from sensor board: %s");
             }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                LOG.error("Data comm runner thread was interrupted");
+                break;
+            }
         }
     }
 
