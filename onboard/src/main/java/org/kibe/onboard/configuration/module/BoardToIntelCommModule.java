@@ -18,9 +18,9 @@ import static java.lang.String.format;
 import static org.apache.logging.log4j.LogManager.getLogger;
 
 @Singleton
-public class CommunicationModule implements Sender{
+public class BoardToIntelCommModule implements Sender{
 
-    private final Logger LOG = getLogger(CommunicationModule.class.getName());
+    private final Logger LOG = getLogger(BoardToIntelCommModule.class.getName());
 
     private static final String NO_ROUTING_KEY = "";
     private static final String COMM_ERROR_MESSAGE = "Communication error: could not send message with topic to %s. Underlying error: %s";
@@ -36,8 +36,8 @@ public class CommunicationModule implements Sender{
     private Channel channel;
 
     @Inject
-    public CommunicationModule(@Named(QUEUE_PORT_PROPERTY) final String queuePort,
-                               @Named(QUEUE_HOST_PROPERTY) final String host) {
+    public BoardToIntelCommModule(@Named(QUEUE_PORT_PROPERTY) final String queuePort,
+                                  @Named(QUEUE_HOST_PROPERTY) final String host) {
         this.queuePort = queuePort;
         this.host = host;
     }
