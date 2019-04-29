@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.kibe.common.exception.ConfigurationException;
 import org.kibe.onboard.communication.board.DataCommRunner;
 import org.kibe.onboard.communication.board.DataListener;
+import org.kibe.onboard.communication.board.DataPointParser;
 
 import javax.inject.Named;
 import java.io.IOException;
@@ -49,8 +50,7 @@ public class I2CommunicationModule {
             throw new ConfigurationException(e.getMessage());
         }
 
-        // TODO: if no bus were found, it is likely that the command was not run as root.
-        // find available busses
+        // TODO: check whether this is run as root.
         for (int number = I2CBus.BUS_0; number <= I2CBus.BUS_17; ++number) {
             try {
                 @SuppressWarnings("unused")
@@ -64,7 +64,8 @@ public class I2CommunicationModule {
         }
     }
 
-    public void init(final List<DataListener> dataListeners) throws ConfigurationException {
+    public void init(final DataPointParser dataPointParser,
+                     final List<DataListener> dataListeners) throws ConfigurationException {
         I2CDevice devicePort;
         try {
             final I2CBus communicationBus = I2CFactory.getInstance(Integer.valueOf(communicationBusNumber));
@@ -72,7 +73,7 @@ public class I2CommunicationModule {
         } catch (I2CFactory.UnsupportedBusNumberException | IOException e) {
             throw new ConfigurationException("Unsupported bus number");
         }
-        final DataCommRunner dataCommandRunner = new DataCommRunner(devicePort);
+        final DataCommRunner dataCommandRunner = new DataCommRunner(devicePort, dataPointParser);
         dataListeners.forEach(dataCommandRunner::registerListener);
         executor.execute(dataCommandRunner);
     }

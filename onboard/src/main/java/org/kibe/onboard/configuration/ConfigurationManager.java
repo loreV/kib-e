@@ -11,7 +11,6 @@ import org.kibe.onboard.configuration.module.I2CommunicationModule;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-import static java.lang.String.format;
 import static org.apache.logging.log4j.LogManager.getLogger;
 
 public class ConfigurationManager {
@@ -46,9 +45,11 @@ public class ConfigurationManager {
         try {
             boardToIntelCommModule.init();
         } catch (IOException | TimeoutException e) {
-            throw new ConfigurationException(format("Error while initializing queue connection. Error: %s", e.getMessage()));
+            throw new ConfigurationException("Error while initializing queue connection", e);
         }
-        i2commModule.init(dataListenerModule.getDataListener());
+        i2commModule.init(
+                dataListenerModule.getDataPointParser(),
+                dataListenerModule.getDataListener());
         controllerModule.init();
         LOG.info("Initialization completed");
     }
