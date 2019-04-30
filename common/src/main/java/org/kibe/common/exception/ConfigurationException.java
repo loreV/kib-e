@@ -9,4 +9,8 @@ public class ConfigurationException extends Exception {
     public ConfigurationException(final String causeMessage) {
         super(format(message, causeMessage));
     }
+
+    public ConfigurationException(final String causeMessage, Throwable throwable) {
+        super(format(causeMessage + ".Error message: %s", throwable.getMessage()));
+    }
 }
