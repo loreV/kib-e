@@ -1,7 +1,5 @@
 package org.kibe.intel.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 import org.kibe.intel.data.DataPointDAO;
 import org.kibe.common.data.DataPoint;
@@ -10,6 +8,7 @@ import org.bson.types.ObjectId;
 import org.eclipse.jetty.http.HttpStatus;
 import org.kibe.common.response.RESTResponse;
 import org.kibe.common.response.Status;
+import org.kibe.intel.helper.GsonBeanHelper;
 import spark.Request;
 import spark.Response;
 import org.kibe.common.JsonUtil;
@@ -29,7 +28,8 @@ public class DataPointController {
 
     private final Logger LOG = getLogger(DataPointController.class.getName());
 
-    private final Gson gsonBuilder;
+    private final GsonBeanHelper gsonBuilder;
+
     private static final String FROM_PARAM = "from";
     private static final String TO_PARAM = "to";
     private static final String PREFIX = "/datapoint";
@@ -40,9 +40,10 @@ public class DataPointController {
     private final SimpleDateFormat simpleDateFormatter;
 
     @Inject
-    public DataPointController(final DataPointDAO dataPointDAO) {
+    public DataPointController(final DataPointDAO dataPointDAO,
+                               final GsonBeanHelper gsonBeanHelper) {
         this.dataPointDAO = dataPointDAO;
-        gsonBuilder = new GsonBuilder().create();
+        gsonBuilder = gsonBeanHelper;
         simpleDateFormatter = new SimpleDateFormat(UTC_DATE_PATTERN);
     }
 
@@ -68,7 +69,7 @@ public class DataPointController {
     }
 
     private RESTResponse persist(final Request request, final Response response) {
-        final DataPoint dataPoint = gsonBuilder.fromJson(request.body(), DataPoint.class);
+        final DataPoint dataPoint = gsonBuilder.getGsonBuilder().fromJson(request.body(), DataPoint.class);
         final ObjectId persist = dataPointDAO.persist(dataPoint);
         return new RESTResponse.Builder().code(HttpStatus.OK_200).messages(Collections.singletonList(persist.toString())).build();
     }

@@ -3,6 +3,7 @@ package org.kibe.intel.configuration;
 import com.google.inject.Inject;
 import org.kibe.intel.configuration.module.CommunicationModule;
 import org.kibe.intel.controller.DataPointController;
+import org.kibe.intel.controller.SystemController;
 import org.kibe.intel.data.DataSource;
 import org.apache.logging.log4j.Logger;
 
@@ -19,6 +20,7 @@ public class ConfigurationManager {
 
     private final Logger LOG = getLogger(ConfigurationManager.class.getName());
 
+    private final SystemController systemController;
     private final DataSource dataSource;
 
     private static final String PORT_PROPERTY = "web-port";
@@ -32,9 +34,11 @@ public class ConfigurationManager {
     @Inject
     public ConfigurationManager(final @Named(PORT_PROPERTY) String port,
                                 final DataPointController dataPointController,
+                                final SystemController systemController,
                                 final CommunicationModule communicationModule,
                                 final DataSource dataSource) {
         this.dataPointDAO = dataPointController;
+        this.systemController = systemController;
         this.dataSource = dataSource;
         this.communicationModule = communicationModule;
         port(Integer.valueOf(port));
@@ -61,5 +65,6 @@ public class ConfigurationManager {
 
     private void startController() {
         dataPointDAO.init();
+        systemController.init();
     }
 }
