@@ -1,9 +1,8 @@
-package org.kibe.intel.data;
+package org.kibe.common.data;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.mongodb.client.MongoCollection;
-import org.kibe.common.data.DataPoint;
 import org.kibe.common.data.mapper.DataPointMapper;
 import org.kibe.common.data.mapper.Mapper;
 import org.bson.Document;

@@ -1,4 +1,4 @@
-package org.kibe.intel.data;
+package org.kibe.common.data;
 
 
 import com.mongodb.MongoClient;

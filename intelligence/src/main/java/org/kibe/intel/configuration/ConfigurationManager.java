@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import org.kibe.intel.configuration.module.CommunicationModule;
 import org.kibe.intel.controller.DataPointController;
 import org.kibe.intel.controller.SystemController;
-import org.kibe.intel.data.DataSource;
+import org.kibe.common.data.DataSource;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Named;

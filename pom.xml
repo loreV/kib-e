@@ -12,6 +12,7 @@
         <module>common</module>
         <module>intelligence</module>
         <module>onboard</module>
+        <module>webapp</module>
     </modules>
 
     <!--Dependency version-->

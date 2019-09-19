@@ -1,8 +1,9 @@
-package org.kibe.onboard.configuration.module;
+package org.kibe.common.configuration;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
-
+import org.kibe.common.data.DataSource;
+import org.kibe.common.data.MongoDataSource;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
@@ -13,10 +14,11 @@ public class ConfiguratorModule extends AbstractModule {
         final Properties properties = new Properties();
         final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         try {
-            properties.load(Objects.requireNonNull(contextClassLoader.getResourceAsStream("onboard.properties")));
+            properties.load(Objects.requireNonNull(contextClassLoader.getResourceAsStream("app.properties")));
             Names.bindProperties(binder(), properties);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
+//        bind(DataSource.class).to(MongoDataSource.class);
     }
 }

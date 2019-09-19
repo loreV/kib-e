@@ -1,7 +1,7 @@
 package org.kibe.intel.controller;
 
 import com.google.inject.Inject;
-import org.kibe.intel.data.DataPointDAO;
+import org.kibe.common.data.DataPointDAO;
 import org.kibe.common.data.DataPoint;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;

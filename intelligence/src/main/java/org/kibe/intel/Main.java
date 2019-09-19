@@ -2,7 +2,7 @@ package org.kibe.intel;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.kibe.intel.configuration.module.ConfiguratorModule;
+import org.kibe.common.configuration.ConfiguratorModule;
 import org.kibe.intel.configuration.ConfigurationManager;
 
 public class Main {

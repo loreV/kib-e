@@ -1,15 +1,15 @@
-package org.kibe.onboard;
+package org.kibe.web;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.kibe.common.configuration.ConfiguratorModule;
-import org.kibe.common.exception.ConfigurationException;
-import org.kibe.onboard.configuration.ConfigurationManager;
+import org.kibe.web.configuration.ConfigurationManager;
+
 
 public class Main {
 
 
-    public static void main(String[] args) throws ConfigurationException {
+    public static void main(String[] args) {
         /*
          * Guice.createInjector() takes your Modules, and returns a new Injector
          * instance. Most applications will call this method exactly once, in their
