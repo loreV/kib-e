@@ -6,9 +6,15 @@ import com.google.inject.name.Named;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
+import org.apache.logging.log4j.Logger;
+
+import static java.lang.String.format;
+import static org.apache.logging.log4j.LogManager.getLogger;
 
 @Singleton
 public class MongoDataSource implements DataSource {
+
+    private final Logger LOGGER = getLogger(MongoDataSource.class);
 
     private static final String DATABASE_NAME_PROPERTY = "db";
     private static final String MONGO_URI_PROPERTY = "mongo-uri";
@@ -21,6 +27,7 @@ public class MongoDataSource implements DataSource {
         final MongoClientURI connectionString = new MongoClientURI(mongoURI);
         this.mongoClient = new MongoClient(connectionString);
         this.databaseName = databaseName;
+        LOGGER.info(format("Going to connect to DB '%s'. Connection String '%s'", databaseName, connectionString));
     }
 
     public MongoClient getClient() {

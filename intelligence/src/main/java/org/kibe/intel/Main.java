@@ -14,7 +14,7 @@ public class Main {
          * instance. Most applications will call this method exactly once, in their
          * main() method.
          */
-        final Injector injector = Guice.createInjector(new ConfiguratorModule());
+        final Injector injector = Guice.createInjector(new ConfiguratorModule(args));
 
         /*
          * Now that we've got the injector, we can build objects.

@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import org.kibe.common.data.DataPointDAO;
 import org.kibe.common.data.DataPoint;
 import org.apache.logging.log4j.Logger;
-import org.bson.types.ObjectId;
 import org.eclipse.jetty.http.HttpStatus;
 import org.kibe.common.response.RESTResponse;
 import org.kibe.common.response.Status;
@@ -12,6 +11,7 @@ import org.kibe.intel.helper.GsonBeanHelper;
 import spark.Request;
 import spark.Response;
 import org.kibe.common.JsonUtil;
+import org.bson.types.ObjectId;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
